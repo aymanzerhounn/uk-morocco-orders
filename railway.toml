@@ -1,6 +1,7 @@
 # Tells Railway to use the API folder (not the repo root)
 [build]
 builder = "NIXPACKS"
+buildCommand = "npm install --prefix backend --omit=dev"
 
 [deploy]
 startCommand = "cd backend && npm start"
