@@ -8,5 +8,3 @@ PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "true"
 [deploy]
 startCommand = "npm start"
 restartPolicyType = "ON_FAILURE"
-healthcheckPath = "/api/health"
-healthcheckTimeout = 120
