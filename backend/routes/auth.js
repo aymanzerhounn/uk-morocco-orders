@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { supabaseAdmin } = require('../config/supabase');
+const getSupabase = () => require('../config/supabase').supabaseAdmin;
 
 router.post('/login', async (req, res) => {
   try {
@@ -10,7 +10,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ error: 'Email and password are required' });
     }
 
-    const { data, error } = await supabaseAdmin.auth.signInWithPassword({
+    const { data, error } = await getSupabase().auth.signInWithPassword({
       email,
       password
     });
@@ -40,7 +40,7 @@ router.get('/verify', async (req, res) => {
       return res.status(401).json({ error: 'No token provided' });
     }
 
-    const { data, error } = await supabaseAdmin.auth.getUser(token);
+    const { data, error } = await getSupabase().auth.getUser(token);
 
     if (error) throw error;
 

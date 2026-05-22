@@ -1,4 +1,5 @@
-const { supabaseAdmin, createUserClient } = require('../config/supabase');
+const { createUserClient } = require('../config/supabase');
+const getSupabase = () => require('../config/supabase').supabaseAdmin;
 
 async function requireAuth(req, res, next) {
   const token = req.headers.authorization?.replace(/^Bearer\s+/i, '');
@@ -8,7 +9,7 @@ async function requireAuth(req, res, next) {
   }
 
   try {
-    const { data, error } = await supabaseAdmin.auth.getUser(token);
+    const { data, error } = await getSupabase().auth.getUser(token);
     if (error || !data?.user) {
       return res.status(401).json({ error: 'Invalid or expired session. Please sign in again.' });
     }
