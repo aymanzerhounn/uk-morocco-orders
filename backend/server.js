@@ -19,21 +19,33 @@ const orderRoutes = require('./routes/orders');
 const productRoutes = require('./routes/products');
 const authRoutes = require('./routes/auth');
 
-const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:3000')
-  .split(',')
-  .map((o) => o.trim())
-  .filter(Boolean);
+const frontendUrlEnv = process.env.FRONTEND_URL || 'http://localhost:3000';
+let allowedOrigins = [];
+let allowAllOrigins = false;
 
-app.use(cors({
-  origin(origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error(`CORS blocked: ${origin}`));
-    }
-  },
-  credentials: true
-}));
+if (frontendUrlEnv.trim() === '*') {
+  allowAllOrigins = true;
+} else {
+  allowedOrigins = frontendUrlEnv
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean);
+}
+
+console.log('CORS configuration: ', allowAllOrigins ? 'allow all origins' : allowedOrigins);
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin || allowAllOrigins || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS blocked: ${origin}`));
+      }
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Routes
