@@ -1,0 +1,170 @@
+================================================================
+        UK TO MOROCCO — ORDER MANAGEMENT APP
+              FULL BUILD PROMPT
+================================================================
+
+I want to build a full-stack order management web application
+for my UK to Morocco shopping service business. Here is
+everything I need:
+
+----------------------------------------------------------------
+BUSINESS CONTEXT
+----------------------------------------------------------------
+I buy products from UK stores (Shein, Temu, Primark, and other
+UK brands) and ship them to customers in Morocco. I need to
+manage all incoming orders, track their status, and keep
+customer information organized.
+
+----------------------------------------------------------------
+TECH STACK
+----------------------------------------------------------------
+- Frontend  : React.js
+- Backend   : Node.js with Express
+- Database  : Supabase (PostgreSQL)
+- Scraping  : Puppeteer
+- Hosting   : Railway
+
+----------------------------------------------------------------
+DATABASE TABLES I NEED
+----------------------------------------------------------------
+Orders table with these fields:
+
+  - id                (auto generated)
+  - platform          (Shein / Temu / Primark / Other)
+  - customer_name
+  - customer_phone
+  - customer_city     (city in Morocco)
+  - product_name
+  - product_image_url
+  - product_url       (original shopping link)
+  - product_price_gbp (price in British Pounds)
+  - quantity
+  - shipping_cost
+  - total_price
+  - status            (Pending / Ordered / Shipped / Delivered / Cancelled)
+  - notes
+  - created_at        (auto timestamp)
+
+----------------------------------------------------------------
+PAGES I NEED
+----------------------------------------------------------------
+
+1. DASHBOARD PAGE
+   - Total orders count
+   - Total revenue
+   - Orders broken down by platform
+   - Orders broken down by status
+   - Recent orders list
+   - All shown in cards and charts
+
+2. SHEIN PAGE
+   - Shows only Shein orders in a table
+   - Add new order button
+   - Edit and delete each order
+   - Filter by status
+   - Search by customer name or product name
+
+3. TEMU PAGE
+   - Same as Shein page but for Temu orders only
+
+4. PRIMARK PAGE
+   - Same as Shein page but for Primark orders only
+
+5. OTHER BRANDS PAGE
+   - Same as Shein page but for any other UK brand
+   - Extra field: brand name
+
+6. ALL ORDERS PAGE
+   - Shows every order from all platforms in one table
+   - Filter by platform
+   - Filter by status
+   - Search bar
+
+----------------------------------------------------------------
+KEY FEATURES I NEED
+----------------------------------------------------------------
+
+1. AUTOMATIC PRODUCT FETCH FROM LINK
+   When I paste a Shein or Temu product URL into the order
+   form, the app automatically fetches the product name, price,
+   and image using Puppeteer and fills in the form fields.
+   I should not have to type product details manually.
+
+2. ORDER STATUS WITH COLORS
+   Each order has a status I can update with a dropdown:
+   - Pending    → Yellow
+   - Ordered    → Blue
+   - Shipped    → Orange
+   - Delivered  → Green
+   - Cancelled  → Red
+
+3. SEARCH
+   Search orders by customer name or product name on every page.
+
+4. FILTER BY STATUS
+   Filter orders by status on each platform page.
+
+5. NOTES FIELD
+   Each order has a notes field for extra information.
+
+6. PASSWORD PROTECTION
+   The app is protected by login — only I can access it.
+   Use Supabase Auth for this.
+
+7. PERMANENT DATA STORAGE
+   All data saved in Supabase database.
+   Nothing is lost on page refresh.
+
+8. DESIGN
+   - Clean, modern, dark themed, professional
+   - Similar to a logistics / shipping dashboard
+   - Each platform has its own color accent:
+       Shein   → Pink
+       Temu    → Orange
+       Primark → Green
+       Others  → Blue
+
+9. CSV EXPORT
+   On each page I can export the orders list to a CSV file.
+
+----------------------------------------------------------------
+HOW TO BUILD IT — STEP BY STEP ORDER
+----------------------------------------------------------------
+
+Step 1 — Supabase Setup
+   Give me the exact SQL to create all the database tables.
+   Show me where to paste it in Supabase.
+
+Step 2 — Backend
+   Build the Node.js + Express server.
+   Add Puppeteer route: POST /api/fetch-product
+   that takes a URL and returns product name, price, image.
+   Add all CRUD routes for orders.
+   Connect to Supabase using the Supabase JS client.
+
+Step 3 — React Frontend
+   Build the app page by page in this order:
+     1. Login page
+     2. Dashboard
+     3. Shein page
+     4. Temu page
+     5. Primark page
+     6. Other brands page
+     7. All orders page
+
+Step 4 — Deployment
+   Show me how to deploy the backend on Railway.
+   Show me how to deploy the frontend on Vercel or Railway.
+
+----------------------------------------------------------------
+IMPORTANT INSTRUCTIONS FOR THE AI
+----------------------------------------------------------------
+- Give me every single file with the FULL code — no shortcuts,
+  no "add the rest yourself"
+- Tell me exactly where to put each file
+- Tell me exactly which commands to run and in what order
+- If there are environment variables (.env), show me exactly
+  what to put in them
+- Build it so a non-expert can follow along step by step
+
+================================================================
