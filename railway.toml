@@ -1,0 +1,13 @@
+# Tells Railway to use the API folder (not the repo root)
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "cd backend && npm start"
+restartPolicyType = "ON_FAILURE"
+healthcheckPath = "/api/health"
+healthcheckTimeout = 120
+
+[build.env]
+PUPPETEER_SKIP_DOWNLOAD = "true"
+PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "true"

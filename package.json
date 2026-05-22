@@ -4,6 +4,8 @@
   "scripts": {
     "setup": "node scripts/create-admin-user.js",
     "install:all": "npm install --prefix backend && npm install --prefix frontend",
+    "start": "npm start --prefix backend",
+    "build": "npm install --prefix backend --omit=dev",
     "start:backend": "npm start --prefix backend",
     "start:frontend": "npm start --prefix frontend"
   }
