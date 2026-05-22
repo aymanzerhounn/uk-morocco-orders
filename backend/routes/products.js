@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const puppeteer = require('puppeteer');
 const requireAuth = require('../middleware/requireAuth');
 
 router.use(requireAuth);
@@ -13,13 +12,29 @@ router.post('/fetch-product', async (req, res) => {
       return res.status(400).json({ error: 'URL is required' });
     }
 
+    let puppeteer;
+    try {
+      puppeteer = require('puppeteer');
+    } catch {
+      return res.status(503).json({
+        error: 'Product scraping is not available on this server. Enter product details manually.'
+      });
+    }
+
     let browser;
     try {
       browser = await puppeteer.launch({
         headless: 'new',
         args: ['--no-sandbox', '--disable-setuid-sandbox']
       });
+    } catch (launchError) {
+      console.error('Puppeteer launch failed:', launchError.message);
+      return res.status(503).json({
+        error: 'Product scraping is not available on this server. Enter product details manually.'
+      });
+    }
 
+    try {
       const page = await browser.newPage();
       await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
       await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });

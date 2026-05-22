@@ -1,0 +1,13 @@
+# Faster, reliable Railway builds (skips huge Chromium download)
+[variables]
+PUPPETEER_SKIP_DOWNLOAD = "true"
+PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "true"
+
+[phases.install]
+cmds = ["npm ci --omit=dev || npm install --omit=dev"]
+
+[phases.build]
+cmds = ["echo 'Backend ready'"]
+
+[start]
+cmd = "npm start"
